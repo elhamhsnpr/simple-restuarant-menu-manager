@@ -11,6 +11,7 @@ async function Create() {
 
     await createDatabse();
     await CreateTable();
+    await AddForeignkey();
     await AddAdmin();
 
 
@@ -64,47 +65,91 @@ async function CreateTable() {
             console.log('err Admin:', err);
         });
 
+    //Add Category Table
+    query = `CREATE TABLE IF NOT EXISTS Category(
+            _id SERIAL PRIMARY KEY ,         
+            Name VARCHAR(45) 
+                    
+        );`;
+    await pool.query(query).then(
+
+        function (res) {
+            console.log("db/:Make Creating 'Category' Table ");
+        }, function (err) {
+            console.log('err Category:', err);
+        });
+
+    //Add Item Table
+    query = `CREATE TABLE IF NOT EXISTS Item(
+                    _id SERIAL PRIMARY KEY ,         
+                    Name VARCHAR(45),
+                    category_id INTEGER
+                
+    );`;
+    await pool.query(query).then(
+
+        function (res) {
+            console.log("db/:Make Creating 'Item' Table ");
+        }, function (err) {
+            console.log('err Item:', err);
+
+        });
 
 
 
 
 }
+
+async function AddForeignkey() {
+    //Add CategoryId Foreign Key Of Category to Item
+    query = `ALTER TABLE  Item
+                 ADD  CONSTRAINT CategoryForeignKey 
+                 FOREIGN KEY (category_id) REFERENCES category(_id)`;
+    await pool.query(query).then(
+        function (res) {
+            console.log("db/: Add Category Foreign Key");
+        },
+        function (err) {
+            console.log('err Category Foreign Key:', err);
+        });
+}
+
 async function AddAdmin() {
 
-    // Hashin Password
-    bcrypt.hash('97250', BCRYPT_SALT_ROUNDS)
-        .then(hashedPassword => {
-            // let password = hashedPassword;
-            pool.query(
-                `INSERT INTO admin (firstName,lastName,username,password,userType) 
-                             VALUES ($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'eli123', hashedPassword, 'admin']
-            ).then(
-                function (res) {
-                    console.log("db/: Add Admin.Admin  ");
-                  },
-                function (err) {
+    pool.query(`Select * FROM admin `)
+        .then(result => {
+            // check DataBase is empty then add admin.admin manually
+            if (result.rows[0] === undefined) {
+                // Hashin Password
+                bcrypt.hash('97250', BCRYPT_SALT_ROUNDS)
+                    .then(hashedPassword => {
 
-                    console.log('err Add Admin.Admin:', err);
+                        pool.query(
+                            `INSERT INTO admin (firstName,lastName,username,password,userType) 
+                         VALUES ($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'eli123', hashedPassword, 'admin.admin']
+                        ).then(
+                            function (res) {
+                                console.log("db/: Add Admin.Admin  ");
+                            },
+                            function (err) {
 
-                    // reject(err);
-                }
+                                console.log('err Add Admin.Admin:', err);
+
+
+                            }
+                        )
+                    })
+            } else (
+                console.log('Admin.Admin Exist')
             )
-        })
+        }
+
+        )
+
         .catch(err => {
             console.log(err);
         });
 
-    // let query = `INSERT INTO admin (firstName,lastName,username,password,userType) VALUES 
-    //     ('Elham','Hassanpour','admin.admin','','admin');`;
-
-
-    // await pool.query(query).then(
-    //     function (res) {
-    //         
-    //     },
-    //     function (err) {
-    //         console.log('err Add Admin.Admin:', err);
-    //     });
 
 }
 
