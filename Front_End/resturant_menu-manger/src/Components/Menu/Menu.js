@@ -10,46 +10,45 @@ function Menu(props) {
     let categoryElementList = [];
 
     useEffect(() => {
-        loadData();
-      }, [])
+        const reformatData=(resturantMenuData)=>{
+            let categoryElementDict = {};
+            for (let menuItem of resturantMenuData)
+            {
+                let menuItemDict = {}
+                menuItemDict['item'] = menuItem.item;
+                menuItemDict['price'] = menuItem.price;
+                menuItemDict['description'] = menuItem.description;
     
-    const reformatData=(resturantMenuData)=>{
-        let categoryElementDict = {};
-        for (let menuItem of resturantMenuData)
-        {
-            let menuItemDict = {}
-            menuItemDict['item'] = menuItem.item;
-            menuItemDict['price'] = menuItem.price;
-            menuItemDict['description'] = menuItem.description;
-
-            if (menuItem.category in categoryElementDict)
-            {
-                categoryElementDict[menuItem.category].push(menuItemDict);
+                if (menuItem.category in categoryElementDict)
+                {
+                    categoryElementDict[menuItem.category].push(menuItemDict);
+                }
+                else
+                {
+                    categoryElementDict[menuItem.category] = [];
+                    categoryElementDict[menuItem.category].push(menuItemDict);
+                }
             }
-            else
-            {
-                categoryElementDict[menuItem.category] = [];
-                categoryElementDict[menuItem.category].push(menuItemDict);
-            }
+        
+            setMenuDataState(categoryElementDict);
         }
     
-        setMenuDataState(categoryElementDict);
-    }
-
-    const loadData = () => {
-        axios.defaults.withCredentials = true;
-        axios.get(API_BASE_URL + 'menu')
-            .then(function (response) {
-                reformatData(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-    
-            });
-    }
+        const loadData = () => {
+            axios.defaults.withCredentials = true;
+            axios.get(API_BASE_URL + 'menu')
+                .then(function (response) {
+                    reformatData(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+        
+                });
+        }
+        loadData();
+      }, [])
 
     for (let category in menuDataState){
-        categoryElementList.push(<Category name={category} menu_list={menuDataState[category]} />)
+        categoryElementList.push(<Category key={category} name={category} menu_list={menuDataState[category]} />)
     }
 
     return (
