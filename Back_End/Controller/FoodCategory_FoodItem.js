@@ -1,35 +1,24 @@
 const pgclient = require('../DB/ConnectDB');
 const jwt = require('../Utils/Jwt');
 
-exports.addCategory = () => {
+exports.addFood = () => {
 
 
     return (req, res, next) => {
 
 
-        pgclient.query('INSERT INTO category(categoryName) VALUES ($1)', [req.body.categoryName]).then(
+        pgclient.query('INSERT INTO Food(category, item, price, description) VALUES ($1,$2,$3,$4)',
+            [req.body.category, req.body.item, req.body.price, req.body.description]).then(
 
-            console.log("Insert Done")
+                console.log("Insert Done"),
+                 
+                res.status(200).end()
 
-        ).catch(err => next(err));
+            ).catch(err => next(err));
     };
 
 
 
 };
 
-exports.addItem = () => {
-
-
-    return (req, res, next) => {
-
-        pgclient.query('INSERT INTO item(itemName,categoryName) VALUES ($1,$2)', [req.body.itemName, req.body.categoryName]).then(
-
-            console.log("Insert Done")
-
-        ).catch(err => next(err));
-    };
-
-
-}
 

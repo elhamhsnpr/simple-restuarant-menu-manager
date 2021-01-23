@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 
 //Generate Token
 module.exports.GenerateToken = (user) => {
-    return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' },);
+  return jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' },);
 }
 
 
@@ -15,15 +15,14 @@ module.exports.GenerateToken = (user) => {
 module.exports.verifyToken = (req, res, next) => {
 
   const authcookie = req.cookies.authcookie
-    // const authHeader = req.headers['authorization']
-    const token = authcookie;// && authcookie.split(' ')[1]
-   // if (token == null) return res.sendStatus(401)
-  console.log(token)
-    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
-      // console.log(err)
-      if (err) return res.sendStatus(403);
-      req.token = token;
-      next()
-    })
+  const token = authcookie;// && authcookie.split(' ')[1]
+  if (token == null) return res.sendStatus(401)
+
+  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
+
+    if (err) return res.sendStatus(403);
+    req.token = token;
+    next()
+  })
 
 }

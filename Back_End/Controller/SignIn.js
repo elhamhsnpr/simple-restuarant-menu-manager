@@ -11,8 +11,7 @@ exports.signIn = getInfo => {
         getInfo = (req) => {
             return {
                 username: req.body.username,
-                password: req.body.password,
-                userType: req.body.userType
+                password: req.body.password
             };
         };
 
@@ -61,7 +60,7 @@ exports.signIn = getInfo => {
 
 
             }).then(token => {
-                console.log(token)
+                // console.log(token)
 
                 delete user.password;
 

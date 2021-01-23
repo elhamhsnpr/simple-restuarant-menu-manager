@@ -8,7 +8,6 @@ function LoginForm(props) {
     const [state, setState] = useState({
         username: "",
         password: "",
-        userType: "",
         successMessage: null
     })
 
@@ -25,8 +24,7 @@ function LoginForm(props) {
         e.preventDefault();
         const payload = {
             "username": state.username,
-            "password": state.password,
-            "userType": state.userType,
+            "password": state.password
         }
 
         axios.defaults.withCredentials=true;
@@ -90,7 +88,7 @@ function LoginForm(props) {
                     />
                 </div>
 
-                <div className="form-group text-left">
+                {/* <div className="form-group text-left">
                     <label htmlFor="exampleInputPassword1">userType</label>
                     <input type="text"
                         className="form-control"
@@ -99,7 +97,7 @@ function LoginForm(props) {
                         value={state.userType}
                         onChange={handleChange}
                     />
-                </div>
+                </div> */}
                 <div className="form-check">
                 </div>
                 <button

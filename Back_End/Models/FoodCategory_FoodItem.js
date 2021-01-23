@@ -1,15 +1,23 @@
-module.exports.categorySchema={
-    'Name': {
+module.exports.FoodSchema = {
+    'category': {
+        notEmpty: {
+            errorMessage: 'empty'
+        }
+    },
+    'item': {
+        notEmpty: {
+            errorMessage: 'empty'
+        }
+    },
+    'price': {
+        notEmpty: {
+            errorMessage: 'empty'
+        }
+    },
+    'description': {
         notEmpty: {
             errorMessage: 'empty'
         }
     }
 }
 
-module.exports.itemSchema={
-    'Name': {
-        notEmpty: {
-            errorMessage: 'empty'
-        }
-    }
-}

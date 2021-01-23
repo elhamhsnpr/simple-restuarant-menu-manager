@@ -5,16 +5,10 @@ const bodyParser = require('body-parser')
 
 // const signUpRoutes = require('./routes/sign-up');
 const singInRoutes = require('./Router/SignIn');
-const foodCategory_foodItem = require('./Router/FoodCategory_FoodItem');
+const AddFoodRoutes = require('./Router/FoodCategory_FoodItem');
 const MenuRoutes = require('./Router/Menu')
 
 
-// const allowCrossDomain = function(req, res, next) {
-// res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-// // res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-// res.header('Access-Control-Allow-Headers', 'Content-Type');
-// next();
-// }
 
 const corsOption = {
     origin: 'http://localhost:3000',
@@ -28,15 +22,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser())
 
-
-// app.use(allowCrossDomain);
-
 //Sign UP Route
 // app.use(signUpRoutes);
+
 //Sign In Route
 app.use(singInRoutes);
+
 //FoodCategory_FoodItem Route
-app.use(foodCategory_foodItem);
+app.use(AddFoodRoutes);
+
 //Menu Route
 app.use(MenuRoutes);
 

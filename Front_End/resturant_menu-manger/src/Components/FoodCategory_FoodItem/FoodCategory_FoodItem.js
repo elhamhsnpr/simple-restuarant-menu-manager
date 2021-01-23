@@ -7,8 +7,10 @@ import { withRouter } from "react-router-dom";
 function AddCategory_Item(props) {
 
     const [state, setState] = useState({
-        itemName: "",
-        categoryName: "",
+        category: "",
+        item: "",
+        price: "",
+        description: "",
         successMessage: null
 
     })
@@ -24,12 +26,15 @@ function AddCategory_Item(props) {
     const sendDetailsToServer = () => {
 
         const payload = {
-            "itemName": state.itemName,
-            "categoryName": state.categoryName
+            "category": state.category,
+            "item": state.item,
+            "price": state.price,
+            "description": state.description
 
         }
-        axios.defaults.withCredentials=true;
-        axios.post(API_BASE_URL +'addItem', payload)
+
+        axios.defaults.withCredentials = true;
+        axios.post(API_BASE_URL + 'addFood', payload)
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
@@ -37,7 +42,8 @@ function AddCategory_Item(props) {
                         ...prevState,
                         'successMessage': 'category and item added  ...'
                     }))
-                    redirectToHome();
+                    // redirectToHome();
+                    redirectToMenu();
                     props.showError(null)
                 } else {
                     props.showError("Some error ocurred");
@@ -49,10 +55,16 @@ function AddCategory_Item(props) {
 
 
     }
-    const redirectToHome = () => {
-        props.updateTitle('Home')
-        props.history.push('/Home');
+
+    const redirectToMenu = () => {
+        props.updateTitle('Menu')
+        props.history.push('/');
+
     }
+    // const redirectToHome = () => {
+    //     props.updateTitle('Home')
+    //     props.history.push('/Home');
+    // }
 
     // const redirectToLogin = () => {
     //     props.updateTitle('SignIn')
@@ -74,22 +86,42 @@ function AddCategory_Item(props) {
             <form>
 
                 <div className="form-group text-left">
-                    <label htmlFor="ExampleInputLastname">Item</label>
+                    <label htmlFor="ExampleInputLastname">Category</label>
                     <input type="text"
                         className="form-control"
-                        id="itemName"
-                        placeholder="Item"
-                        value={state.itemName}
+                        id="category"
+                        placeholder="Category"
+                        value={state.category}
                         onChange={handleChange}
                     />
                 </div>
                 <div className="form-group text-left">
-                    <label htmlFor="ExampleInputFirstname">Category</label>
+                    <label htmlFor="ExampleInputFirstname">Item</label>
                     <input type="text"
                         className="form-control"
-                        id="categoryName"
-                        placeholder="category"
-                        value={state.categoryName}
+                        id="item"
+                        placeholder="Item"
+                        value={state.item}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group text-left">
+                    <label htmlFor="ExampleInputFirstname">price</label>
+                    <input type="text"
+                        className="form-control"
+                        id="price"
+                        placeholder="Price"
+                        value={state.price}
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="form-group text-left">
+                    <label htmlFor="ExampleInputFirstname">Description</label>
+                    <input type="text"
+                        className="form-control"
+                        id="description"
+                        placeholder="Description"
+                        value={state.description}
                         onChange={handleChange}
                     />
                 </div>
