@@ -68,7 +68,7 @@ async function CreateTable() {
     //Add Category Table
     query = `CREATE TABLE IF NOT EXISTS Category(
             _id SERIAL PRIMARY KEY ,         
-            Name VARCHAR(45) 
+            CategoryName VARCHAR(45) 
                     
         );`;
     await pool.query(query).then(
@@ -82,8 +82,8 @@ async function CreateTable() {
     //Add Item Table
     query = `CREATE TABLE IF NOT EXISTS Item(
                     _id SERIAL PRIMARY KEY ,         
-                    Name VARCHAR(45),
-                    category_id INTEGER
+                    itemName VARCHAR(45),
+                    categoryName  VARCHAR(45)
                 
     );`;
     await pool.query(query).then(
@@ -104,7 +104,7 @@ async function AddForeignkey() {
     //Add CategoryId Foreign Key Of Category to Item
     query = `ALTER TABLE  Item
                  ADD  CONSTRAINT CategoryForeignKey 
-                 FOREIGN KEY (category_id) REFERENCES category(_id)`;
+                 FOREIGN KEY (categoryName) REFERENCES category(categoeryName)`;
     await pool.query(query).then(
         function (res) {
             console.log("db/: Add Category Foreign Key");

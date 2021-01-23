@@ -14,10 +14,11 @@ module.exports.GenerateToken = (user) => {
 //Verify Token
 module.exports.verifyToken = (req, res, next) => {
 
-    const authHeader = req.headers['authorization']
-    const token = authHeader && authHeader.split(' ')[1]
-    if (token == null) return res.sendStatus(401)
-  
+  const authcookie = req.cookies.authcookie
+    // const authHeader = req.headers['authorization']
+    const token = authcookie;// && authcookie.split(' ')[1]
+   // if (token == null) return res.sendStatus(401)
+  console.log(token)
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, token) => {
       // console.log(err)
       if (err) return res.sendStatus(403);

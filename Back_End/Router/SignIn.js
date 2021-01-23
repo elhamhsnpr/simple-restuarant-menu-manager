@@ -6,12 +6,12 @@ const router = express.Router()
 
 router.post('/sign-in',
 
-signIn(),
+    signIn(),
 
- (req,res   )=>{
-    
-     res.json(req.signIn)
- }
+    (req, res) => {
+
+        res.json(req.signIn)
+    }
 )
 
 module.exports = router;

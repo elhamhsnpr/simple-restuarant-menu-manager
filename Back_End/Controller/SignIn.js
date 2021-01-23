@@ -5,6 +5,7 @@ const JWT = require('../Utils/Jwt');
 
 
 exports.signIn = getInfo => {
+
     //Get req From Cleint
     if (typeof getInfo === 'undefined')
         getInfo = (req) => {
@@ -15,11 +16,13 @@ exports.signIn = getInfo => {
             };
         };
 
+    console.log(typeof getInfo)
+
     return (req, res, next) => {
         let user = null;
 
         const info = getInfo(req);
-        console.log(info);
+        // console.log(info);
 
         pgclient.query(
             `SELECT * FROM  admin  WHERE username=$1 `,
@@ -27,9 +30,9 @@ exports.signIn = getInfo => {
             .then(
                 function (result) {
                     // User not found
-                
+
                     if (result === undefined) throw new Error('username_or_password', 404);
-                   
+
                     user = result.rows[0];
                     console.log(user)
 
@@ -44,21 +47,21 @@ exports.signIn = getInfo => {
             .then(compareResult => {
                 // Compare failed
                 if (compareResult === false) throw new Error('Incorroct password', 404);
-               
+
 
 
                 // Generate Token
                 let users = {
-                    id:user._id,
-                    user:user.username,
-                    type:user.usertype
+                    id: user._id,
+                    user: user.username,
+                    type: user.usertype
                 };
                 return JWT.GenerateToken(users);
 
-            
+
 
             }).then(token => {
-                // console.log(token)
+                console.log(token)
 
                 delete user.password;
 
@@ -66,10 +69,11 @@ exports.signIn = getInfo => {
                     token,
                     user,
                 };
+                //Save token in the cookie
+                res.cookie('authcookie', token, { maxAge: 900000});
+                res.status(200).send();
 
-
-                // return  event;
-                return next();
+                // return next();
 
 
             }).catch(err => next(err));
