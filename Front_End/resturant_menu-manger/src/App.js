@@ -7,6 +7,7 @@ import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Alert from './Components/Alert/Alert';
 import FoodCategoryFoodItem from './Components/FoodCategory_FoodItem/FoodCategory_FoodItem';
+import Menu from './Components/Menu/Menu';
 
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -21,7 +22,7 @@ function App() {
         <div className="container d-flex align-items-center flex-column">
           <Switch>
             <Route path="/" exact={true}>
-              <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>
+              <Menu showError={updateErrorMessage} updateTitle={updateTitle}/>
             </Route>
             <Route path="/signUp">
               <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle}/>

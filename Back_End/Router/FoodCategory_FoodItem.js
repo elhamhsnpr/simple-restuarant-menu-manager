@@ -1,5 +1,5 @@
 const express = require('express');
-const { addCategory , addItem} = require('../Controller/FoodCategory_FoodItem');
+const { addCategory , addItem, Showmenu} = require('../Controller/FoodCategory_FoodItem');
 const jwt = require('../Utils/Jwt');
 
 const router = express.Router();
@@ -28,8 +28,10 @@ router.post('/addItem',
         // category.addCategory()
         res.status(200).end();
 
-        res.json(req.addItem)
+        // res.json(req.addItem)
     }
 )
+
+
 
 module.exports = router;

@@ -71,7 +71,7 @@ exports.signIn = getInfo => {
                 };
                 //Save token in the cookie
                 res.cookie('authcookie', token, { maxAge: 900000});
-                res.status(200).send();
+                res.json(req.signIn);
 
                 // return next();
 

@@ -23,7 +23,7 @@ exports.addItem = () => {
 
     return (req, res, next) => {
 
-        pgclient.query('INSERT INTO item(itemName,categoryName) VALUES ($1,$2)', [req.body.itemName,req.body.categoryName]).then(
+        pgclient.query('INSERT INTO item(itemName,categoryName) VALUES ($1,$2)', [req.body.itemName, req.body.categoryName]).then(
 
             console.log("Insert Done")
 
@@ -32,3 +32,4 @@ exports.addItem = () => {
 
 
 }
+
