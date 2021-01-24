@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from "react-router-dom";
 import MenuItem from '../MunuItem/MenuItem';
+import CardDeck from 'react-bootstrap/CardDeck';
 
 
 function Category(props) {
@@ -12,7 +13,7 @@ function Category(props) {
     }
    
     return (
-        <div className="col-6 col-lg-6">{menuItemList}</div>
+        <CardDeck>{menuItemList}</CardDeck>
     )
 
 }
