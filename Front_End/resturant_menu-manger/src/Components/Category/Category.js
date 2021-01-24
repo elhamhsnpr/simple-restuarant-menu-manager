@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from "react-router-dom";
 import MenuItem from '../MunuItem/MenuItem';
 
+
 function Category(props) {
     let menuItemList = []
 
@@ -11,12 +12,7 @@ function Category(props) {
     }
    
     return (
-        <div>
-            <div>{props.name}</div>
-            <div>{menuItemList}</div>
-        </div>
-
-
+        <div className="col-6 col-lg-6">{menuItemList}</div>
     )
 
 }
