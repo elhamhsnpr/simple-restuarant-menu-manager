@@ -13,8 +13,10 @@ function MenuItem(props) {
                     <Card.Text>
                         {props.description}
                     </Card.Text>
-
                 </Card.Body>
+                <Card.Footer>
+                    <small className="text-muted">{props.price}</small>
+                </Card.Footer>
             </Card>
         </div>
     )

@@ -21,7 +21,7 @@ async function Create() {
 async function createDatabse() {
     const config = {
         user: "postgres",
-        host: "localhost",
+        host: "pg",
         password: "972500",
         port: 5432
     };
