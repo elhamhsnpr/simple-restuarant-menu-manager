@@ -21,7 +21,8 @@ async function Create() {
 async function createDatabse() {
     const config = {
         user: "postgres",
-        host: "pg",
+        host : "localhost",
+        // host: "pg",
         password: "972500",
         port: 5432
     };
@@ -37,7 +38,8 @@ async function createDatabse() {
 
 }
 
-const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+// const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+const connectionString = 'postgresql://postgres:972500@localhost:5432/restuarant';
 
 const pool = new Pool({
     connectionString: connectionString
@@ -82,54 +84,10 @@ async function CreateTable() {
             console.log('err Food:', err);
         });
 
-    //     //Add Category Table
-    //     query = `CREATE TABLE IF NOT EXISTS Category(
-    //             _id SERIAL PRIMARY KEY ,         
-    //             CategoryName VARCHAR(45) 
-
-    //         );`;
-    //     await pool.query(query).then(
-
-    //         function (res) {
-    //             console.log("db/:Make Creating 'Category' Table ");
-    //         }, function (err) {
-    //             console.log('err Category:', err);
-    //         });
-
-    //     //Add Item Table
-    //     query = `CREATE TABLE IF NOT EXISTS Item(
-    //                     _id SERIAL PRIMARY KEY ,         
-    //                     itemName VARCHAR(45),
-    //                     categoryName  VARCHAR(45)
-
-    //     );`;
-    //     await pool.query(query).then(
-
-    //         function (res) {
-    //             console.log("db/:Make Creating 'Item' Table ");
-    //         }, function (err) {
-    //             console.log('err Item:', err);
-
-    //         });
-
-
-
+  
 
 }
 
-// async function AddForeignkey() {
-//     //Add CategoryId Foreign Key Of Category to Item
-//     query = `ALTER TABLE  Item
-//                  ADD  CONSTRAINT CategoryForeignKey 
-//                  FOREIGN KEY (categoryName) REFERENCES category(categoeryName)`;
-//     await pool.query(query).then(
-//         function (res) {
-//             console.log("db/: Add Category Foreign Key");
-//         },
-//         function (err) {
-//             console.log('err Category Foreign Key:', err);
-//         });
-// }
 
 async function AddAdmin() {
 
@@ -138,13 +96,13 @@ async function AddAdmin() {
             // check DataBase is empty then add admin.admin manually
             if (result.rows[0] === undefined) {
                 // Hashin Password
-                bcrypt.hash('97250', BCRYPT_SALT_ROUNDS)
+                bcrypt.hash('admin', BCRYPT_SALT_ROUNDS)
                     .then(hashedPassword => {
 
 
                         pool.query(
                             `INSERT INTO admin (firstName,lastName,username,password,userType) 
-                         VALUES($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'eli123', hashedPassword, 'admin.admin']
+                         VALUES($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'admin.admin', hashedPassword, 'admin.admin']
                         ).then(
                             function (res) {
                                 console.log("db/: Add Admin.Admin  ");
@@ -177,10 +135,24 @@ async function AddFood() {
 
         if (result.rows[0] === undefined) {
             pool.query(
-                `INSERT INTO Food (category,item,price,description) 
-         VALUES ('Main','Pizza','10$','Mashroom,beef,...'),('Salad','Ceasar','5$','lettuce,parmesan cheese,...'),
-                ('Dessert','Icecream','4$','strawberry,banna,..')`
-            ).then(
+                `INSERT INTO Food (category,item,price,description)  VALUES 
+                      ('Starter','Bread Basket','5','Selction of freshly baked rolls'),
+                      ('Starter','Garlice AND Cheese Bread','8','Garlic bread sprinkled with mozzarella cheese'),
+                      ('Main','Pork Chops with Fig and Grape Agrodolce','22','Fresh figs and grapes cooked in balsamic vinegar and honey make an addictively sweet and sour sauce for pork chops'),
+                      ('Main','Cauliflower Bolognese','25','No, you don’t have to be a vegetarian to love what’s going on here. Cauliflower and mushrooms provide richness and toothiness that do justice to the meaty original'),
+                      ('Main','Chicken Stew with Potatoes and Radishes','23','This one-pot comfort-food stew takes its flavor cues from chicken paprikash.'),
+                      ('Main','Grand Aioli','17','This classic French dish is summer dining at its finest: no utensils required, and it pairs very well with chilled rosé'),
+                      ('Dessert','TIRAMISU LAYER CAKE','9','This was sinfully good, and easier to make than I expected. If I had it to do over again, I would ask for this to be my wedding cake'),
+                      ('Dessert','LEMON SOUFFLES','8','Served in a lemon, these personal desserts are both sweet and sophisticated.'),
+                      ('Dessert','WHITE CHOCOLATE RASPBERRY CHEESECAKE','11','This was delicious! It was nice to go out to dinner and not have to order dessert because we knew this was waiting for us at home'),
+                      ('Drink','Rhubarb & custard cocktail','5','An elegant vodka-based drink thatll wow your guests - its made with creamy advocaat liqueur and homemade fruit syrup'),
+                      ('Drink','Cranberry vodka','5','This bittersweet fruity vodka is best served well chilled in shot glasses. It can also be made with other berries like blackcurrants or strawberries'),
+                      ('Drink','Mimosa','5','Mix a classic mimosa cocktail with orange juice and champagne – or use prosecco if you prefer a different sort of bubbly. Its an easy fix when entertaining')   
+                
+               
+                 
+                      
+         ;` ).then(
                 function (res) {
                     console.log("db/: Add Food  ");
                 },
@@ -191,7 +163,7 @@ async function AddFood() {
 
                 }
             )
-        }else(
+        } else (
             console.log('Food Exist')
         )
 

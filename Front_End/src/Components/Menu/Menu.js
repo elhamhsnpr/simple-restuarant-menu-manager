@@ -43,6 +43,7 @@ function Menu(props) {
 
                 });
         }
+        props.updateTitle('Food Menu');
         loadData();
     }, [])
 

@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import './LoginForm.css';
 import { API_BASE_URL } from '../../Constants/apiConstans';
 import { withRouter } from "react-router-dom";
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+
 
 function LoginForm(props) {
     const [state, setState] = useState({
@@ -26,10 +29,10 @@ function LoginForm(props) {
             "password": state.password
         }
 
-        axios.defaults.withCredentials=true;
+        axios.defaults.withCredentials = true;
         axios.post(API_BASE_URL + 'sign-in', payload)
             .then(function (response) {
-                console.log(response)   
+                console.log(response)
                 console.log(Error)
                 if (response.status === 200) {
                     setState(prevState => ({
@@ -40,7 +43,7 @@ function LoginForm(props) {
                     redirectToAddCategor_Item();
                     props.showError(null)
                 }
-              
+
             })
             .catch(function (error) {
                 console.log(error);
@@ -48,72 +51,56 @@ function LoginForm(props) {
             });
     }
 
-    const redirectToAddCategor_Item=()=>{
-        props.updateTitle('AddCategor_Item')
-        props.history.push('/AddCategory_Item');
+    const redirectToAddCategor_Item = () => {
+        props.updateTitle('Add-Categor-Item')
+        props.history.push('/Admin/AddCategory-Item');
     }
-    
-    // const redirectToHome = () => {
-    //     props.updateTitle('Home')
-    //     props.history.push('/home');
-    // }
-    //  const redirectToRegister = () => {
-    //     props.history.push('/signUp');
-    //     props.updateTitle('Register');
-    // }
 
     return (
-        <div className="card col-12 col-lg-4  mt-5 hv-center firstDiv">
-            <form>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Username</label>
-                    <input type="text"
-                        className="form-control"
+
+        <Form>
+            <Form.Group controlId="validationCustomUsername">
+                <Form.Label>Username</Form.Label>
+                <InputGroup>
+                    <Form.Control
+                        type="text"
                         id="username"
-                        placeholder="Enter Username"
+                        placeholder="Username"
+                        aria-describedby="inputGroupPrepend"
+                        required
                         value={state.username}
                         onChange={handleChange}
                     />
-                </div>
+                    <Form.Control.Feedback type="invalid">
+                        Please choose a username.
+            </Form.Control.Feedback>
+                </InputGroup>
+            </Form.Group>
 
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Password"
-                        value={state.password}
-                        onChange={handleChange}
-                    />
-                </div>
+            <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    id="password"
+                    placeholder="Password"
+                    value={state.password}
+                    onChange={handleChange}
+                />
 
-                {/* <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">userType</label>
-                    <input type="text"
-                        className="form-control"
-                        id="userType"
-                        placeholder="userType"
-                        value={state.userType}
-                        onChange={handleChange}
-                    />
-                </div> */}
-                <div className="form-check">
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    onClick={handleSubmitClick}
-                >Submit</button>
-            </form>
-            <div className="alert alert-success mt-1" style={{ display: state.successMessage ? 'block' : 'none' }} role="alert">
-                {state.successMessage}
-            </div>
-            {/* <div className="registerMessage">
-                <span>Dont have an account? </span>
-                <span className="loginText" onClick={() => redirectToRegister()}>signUp</span>
-            </div> */}
+            </Form.Group>
+            <Button variant="primary" type="submit" onClick={handleSubmitClick}>
+                Submit
+  </Button>
+        
+        </Form>
+        
 
-        </div>
+
+
+
+
+
+
     )
 }
 
