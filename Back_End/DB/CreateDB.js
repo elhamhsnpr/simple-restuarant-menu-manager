@@ -11,7 +11,6 @@ async function Create() {
 
     await createDatabse();
     await CreateTable();
-    // await AddForeignkey();
     await AddAdmin();
     await AddFood();
 
@@ -21,8 +20,7 @@ async function Create() {
 async function createDatabse() {
     const config = {
         user: "postgres",
-        host : "localhost",
-        // host: "pg",
+        host: "pg",
         password: "972500",
         port: 5432
     };
@@ -32,14 +30,14 @@ async function createDatabse() {
             console.log("db/:make Creating 'restuarant' ");
 
         }, function (err) {
-            console.log("err DB", err)
+            console.log("err DB", err.name)
         }
     )
 
 }
 
-// const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
-const connectionString = 'postgresql://postgres:972500@localhost:5432/restuarant';
+const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+
 
 const pool = new Pool({
     connectionString: connectionString
@@ -65,7 +63,7 @@ async function CreateTable() {
         function (res) {
             console.log("db/:Make Creating 'Admin' Table ");
         }, function (err) {
-            console.log('err Admin:', err);
+            console.log('err Admin:', err.name);
         });
 
     //Add Food Table
@@ -81,7 +79,7 @@ async function CreateTable() {
         function (res) {
             console.log("db/:Make Creating 'Food' Table ");
         }, function (err) {
-            console.log('err Food:', err);
+            console.log('err Food:', err.name);
         });
 
   
@@ -102,14 +100,14 @@ async function AddAdmin() {
 
                         pool.query(
                             `INSERT INTO admin (firstName,lastName,username,password,userType) 
-                         VALUES($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'admin.admin', hashedPassword, 'admin.admin']
+                         VALUES($1,$2,$3,$4,$5)`, ['elham', 'hasanpour', 'admin', hashedPassword, 'admin.admin']
                         ).then(
                             function (res) {
                                 console.log("db/: Add Admin.Admin  ");
                             },
                             function (err) {
 
-                                console.log('err Add Admin.Admin:', err);
+                                console.log('err Add Admin.Admin:', err.name);
 
 
                             }
@@ -158,7 +156,7 @@ async function AddFood() {
                 },
                 function (err) {
 
-                    console.log('err Food', err);
+                    console.log('err Food', err.name);
 
 
                 }

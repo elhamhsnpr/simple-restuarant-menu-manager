@@ -6,8 +6,8 @@ const CreateDB=require('./CreateDB');
 
 // CreateDB();
 
-// const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
-const connectionString = 'postgresql://postgres:972500@localhost:5432/restuarant';
+const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+
 
 const pool = new Pool({
     connectionString: connectionString
