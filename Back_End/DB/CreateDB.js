@@ -147,10 +147,8 @@ async function AddFood() {
                       ('Drink','Cranberry vodka','5','This bittersweet fruity vodka is best served well chilled in shot glasses. It can also be made with other berries like blackcurrants or strawberries'),
                       ('Drink','Mimosa','5','Mix a classic mimosa cocktail with orange juice and champagne – or use prosecco if you prefer a different sort of bubbly. Its an easy fix when entertaining')   
                 
-               
-                 
-                      
-         ;` ).then(
+               ;` 
+               ).then(
                 function (res) {
                     console.log("db/: Add Food  ");
                 },
@@ -170,14 +168,14 @@ async function AddFood() {
 
 }
 
-// module.exports=CreateDB;
+module.exports=Create;
 
-function f() {
-    try {
-        Create();
-    } catch (e) {
-        console.log(e);
-    }
-}
+// function f() {
+//     try {
+//         Create();
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
 
-f();
+// f();

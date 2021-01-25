@@ -4,7 +4,7 @@
 const {Pool} = require('pg');
 const CreateDB=require('./CreateDB');
 
-// CreateDB();
+CreateDB();
 
 const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
 

@@ -20,4 +20,6 @@ services:
     container_name: "frontend"
     build: ./Front_End
     ports:
-      - "3000:3000"                
+      - "3000:3000"
+    depends_on:
+      - node_backend          
