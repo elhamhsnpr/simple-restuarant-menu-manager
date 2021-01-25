@@ -8,4 +8,4 @@ RUN npm install
 
 EXPOSE 8080
 
-CMD ["node","server.js"]	
+CMD /bin/sleep 10; node server.js
