@@ -122,6 +122,23 @@ function AddCategory_Item(props) {
                 />
 
             </Form.Group>
+
+            <Form.Group>
+            <Form.File
+              className="position-relative"
+              required
+              name="image"
+              label="Image"
+              onChange={handleChange}
+            //   isInvalid={!!errors.file}
+            //   feedback={errors.file}
+              id="validationFormik107"
+              feedbackTooltip
+            />
+          </Form.Group>
+          
+            
+         
             <Button variant="primary" type="submit" onClick={handleSubmitClick}>
                 Add
   </Button>

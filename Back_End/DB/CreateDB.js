@@ -20,7 +20,8 @@ async function Create() {
 async function createDatabse() {
     const config = {
         user: "postgres",
-        host: "pg",
+        host : "localhost",
+        // host: "pg",
         password: "972500",
         port: 5432
     };
@@ -36,7 +37,9 @@ async function createDatabse() {
 
 }
 
-const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+// const connectionString = 'postgresql://postgres:972500@pg:5432/restuarant';
+const connectionString = 'postgresql://postgres:972500@localhost:5432/restuarant';
+
 
 
 const pool = new Pool({

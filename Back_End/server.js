@@ -2,11 +2,13 @@ const express = require("express");
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
+const path = require('path');
 
 // const signUpRoutes = require('./routes/sign-up');
 const singInRoutes = require('./Router/SignIn');
 const AddFoodRoutes = require('./Router/FoodCategory_FoodItem');
-const MenuRoutes = require('./Router/Menu')
+const MenuRoutes = require('./Router/Menu');
+const Uploadimage= require('./Router/Uploadimage');
 
 
 
@@ -33,6 +35,9 @@ app.use(AddFoodRoutes);
 
 //Menu Route
 app.use(MenuRoutes);
+
+//Upload Route
+app.use(Uploadimage, express.static(path.join(__dirname, './upload')));
 
 
 app.listen(8080);
