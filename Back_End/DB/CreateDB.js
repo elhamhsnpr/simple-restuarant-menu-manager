@@ -75,7 +75,10 @@ async function CreateTable() {
             Category VARCHAR(45),
             item VARCHAR(45),
             price VARCHAR(45),
-            description VARCHAR(200)
+            description VARCHAR(200),
+            itemImage VARCHAR(200)
+        
+
         );`;
     await pool.query(query).then(
 
@@ -85,6 +88,17 @@ async function CreateTable() {
             console.log('err Food:', err.name);
         });
 
+        // query = `CREATE TABLE IF NOT EXISTS Image(
+        //     _id SERIAL PRIMARY KEY ,
+        //     imageItem 
+        // )`;
+        // await pool.query(query).then(
+
+        //     function (res) {
+        //         console.log("db/:Make Creating 'Image' Table ");
+        //     }, function (err) {
+        //         console.log('err Image:', err.name);
+        //     });
   
 
 }

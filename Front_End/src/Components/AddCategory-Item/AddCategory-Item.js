@@ -17,6 +17,8 @@ function AddCategory_Item(props) {
 
     })
 
+    const [image,setImage]=useState(null);
+
     const handleChange = (e) => {
         const { id, value } = e.target
         setState(prevState => ({
@@ -25,18 +27,29 @@ function AddCategory_Item(props) {
         }))
     }
 
+    const handleImageUpload=(e)=>{
+       
+        setImage({"itemImage":e.target.files[0]});
+
+    }
+
     const sendDetailsToServer = () => {
 
-        const payload = {
-            "category": state.category,
-            "item": state.item,
-            "price": state.price,
-            "description": state.description
+        const formData = new FormData();
+        formData.append("category",state.category)
+        formData.append("item",state.item)
+        formData.append("price",state.price)
+        formData.append("description",state.description)
+        formData.append("itemImage",image.itemImage)
 
-        }
-
+    
+        const config = {
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        };
         axios.defaults.withCredentials = true;
-        axios.post(API_BASE_URL + 'addFood', payload)
+        axios.post(API_BASE_URL + 'addFood', formData,config)
             .then(function (response) {
                 console.log(response);
                 if (response.status === 200) {
@@ -44,7 +57,7 @@ function AddCategory_Item(props) {
                         ...prevState,
                         'successMessage': 'category and item added  ...'
                     }))
-                   
+
                     props.showError(null)
                 } else {
                     props.showError("Some error ocurred");
@@ -70,7 +83,7 @@ function AddCategory_Item(props) {
 
 
         <Form>
-            <Form.Group >
+            <Form.Group  controlId="formBasicEmail">
                 <Form.Label>Category</Form.Label>
                 <InputGroup>
                     <Form.Control
@@ -85,7 +98,7 @@ function AddCategory_Item(props) {
                 </InputGroup>
             </Form.Group>
 
-            <Form.Group >
+            <Form.Group controlId="formBasicEmail" >
                 <Form.Label>Item</Form.Label>
                 <Form.Control
                     type="text"
@@ -124,24 +137,24 @@ function AddCategory_Item(props) {
             </Form.Group>
 
             <Form.Group>
-            <Form.File
-              className="position-relative"
-              required
-              name="image"
-              label="Image"
-              onChange={handleChange}
-            //   isInvalid={!!errors.file}
-            //   feedback={errors.file}
-              id="validationFormik107"
-              feedbackTooltip
-            />
-          </Form.Group>
-          
-            
-         
+
+                <Form.File
+                    className="position-relative"
+                    required
+                    name="image"
+                    label="Image"
+                    id="itemImage"
+                    //value={image.itemImage}
+                    onChange={handleImageUpload}
+                    //   isInvalid={!!errors.file}
+                    //   feedback={errors.file}
+
+                    feedbackTooltip
+                />
+            </Form.Group>
             <Button variant="primary" type="submit" onClick={handleSubmitClick}>
                 Add
-  </Button>
+            </Button>
             <div className="alert alert-success mt-1" style={{ display: state.successMessage ? 'block' : 'none' }} role="alert">
                 {state.successMessage}
             </div>

@@ -6,7 +6,7 @@ import LoginForm from './Components/LoginForm/LoginForm'
 import Header from './Components/Header/Header';
 import Home from './Components/Home/Home';
 import Alert from './Components/Alert/Alert';
-import AddCategory_Item from './Components/AddCategory-Item/AddCategory-Item';
+import AddCategoryItem from './Components/AddCategory-Item/AddCategory-Item';
 import Menu from './Components/Menu/Menu';
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -32,7 +32,7 @@ function App() {
               <Home/>
             </Route>
             <Route path="/Admin/AddCategory-Item">
-              <AddCategory_Item showError={updateErrorMessage} updateTitle={updateTitle}/>
+              <AddCategoryItem showError={updateErrorMessage} updateTitle={updateTitle}/>
             </Route>
           </Switch>
           <Alert errorMessage={errorMessage} hideError={updateErrorMessage}/>

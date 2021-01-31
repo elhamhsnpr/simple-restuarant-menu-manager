@@ -18,6 +18,11 @@ module.exports.FoodSchema = {
         notEmpty: {
             errorMessage: 'empty'
         }
+    },
+    'itemImage':{
+        notEmpty: {
+            errorMessage: 'empty'
+        }
     }
 }
 

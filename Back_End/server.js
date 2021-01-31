@@ -8,7 +8,7 @@ const path = require('path');
 const singInRoutes = require('./Router/SignIn');
 const AddFoodRoutes = require('./Router/FoodCategory_FoodItem');
 const MenuRoutes = require('./Router/Menu');
-const Uploadimage= require('./Router/Uploadimage');
+
 
 
 
@@ -33,13 +33,12 @@ app.use( express.static(path.join(__dirname, '/uploads')));
 app.use(singInRoutes);
 
 //FoodCategory_FoodItem Route
-// app.use(AddFoodRoutes);
+app.use(AddFoodRoutes);
 
 //Menu Route
 app.use(MenuRoutes);
 
-//Uploadimage
-app.use(Uploadimage);
+
 
 
 

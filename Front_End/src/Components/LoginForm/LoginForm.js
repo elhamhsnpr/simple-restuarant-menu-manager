@@ -62,7 +62,7 @@ function LoginForm(props) {
             <Form.Group controlId="validationCustomUsername">
                 <Form.Label>Username</Form.Label>
                 <InputGroup>
-                    <Form.Control
+                    <Form.Control 
                         type="text"
                         id="username"
                         placeholder="Username"

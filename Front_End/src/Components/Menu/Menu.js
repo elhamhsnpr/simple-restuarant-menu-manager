@@ -45,7 +45,7 @@ function Menu(props) {
         }
         props.updateTitle('Food Menu');
         loadData();
-    }, [])
+    })
 
     for (let category in menuDataState) {
         categoryElementList.push(<Tab eventKey={category} title={category}> <Category key={category} name={category} menu_list={menuDataState[category]} />  </Tab>)
