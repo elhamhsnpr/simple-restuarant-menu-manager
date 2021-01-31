@@ -1,21 +1,11 @@
 const express = require('express');
-const { upload } = require('../Controller/Uploadimage');
+const { upload, pathInsert } = require('../Controller/Uploadimage');
+// const {addFood} = require('../Controller/FoodCategory_FoodItem');
 
 const router= express.Router();
 
-router.post('/upload'
+router.post('/upload',
 
-    , upload.single('image'),
-
-    (req, res, next) => {
-
-        try {
-            return res.status(201).json({
-                message: 'File uploded successfully'
-            });
-        } catch (error) {
-            console.error(error);
-        }
-    });
+upload,pathInsert);
 
 module.exports = router;

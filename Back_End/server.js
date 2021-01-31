@@ -12,6 +12,7 @@ const Uploadimage= require('./Router/Uploadimage');
 
 
 
+
 const corsOption = {
     origin: 'http://localhost:3000',
     credentials: true
@@ -23,6 +24,7 @@ app.use(cors(corsOption))
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser())
+app.use( express.static(path.join(__dirname, '/uploads')));
 
 //Sign UP Route
 // app.use(signUpRoutes);
@@ -31,13 +33,14 @@ app.use(cookieParser())
 app.use(singInRoutes);
 
 //FoodCategory_FoodItem Route
-app.use(AddFoodRoutes);
+// app.use(AddFoodRoutes);
 
 //Menu Route
 app.use(MenuRoutes);
 
-//Upload Route
-app.use(Uploadimage, express.static(path.join(__dirname, './upload')));
+//Uploadimage
+app.use(Uploadimage);
+
 
 
 app.listen(8080);
